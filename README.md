@@ -1,2 +1,2 @@
 # findMarker
-마커 인식용 React Native 웹앱
+마커인식 React Native 웹앱
