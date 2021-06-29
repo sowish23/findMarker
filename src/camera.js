@@ -20,8 +20,7 @@ const Button = styled.View`
 `;
 
 const Touchable = styled.TouchableOpacity``;
-
-const TakePhoto = () => {
+const TakePhoto = ({navigation}) => {
 	const cameraRef = React.useRef(null);
 
 	const takePhoto = async () => {
@@ -37,6 +36,7 @@ const TakePhoto = () => {
 			})
 			.then(function (response) {
 				console.log(response);
+				navigation.navigate('Main');
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -61,5 +61,4 @@ const TakePhoto = () => {
 		</>
 	)
 }
-
 export default TakePhoto

@@ -17,14 +17,11 @@ import {
   View,
 } from 'react-native';
 import { AppRegistry } from 'react-native';
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import { Colors, } from 'react-native/Libraries/NewAppScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator} from '@react-navigation/stack';
 import TakePhoto from './src/camera';
+import Main from './src/main';
 
 AppRegistry.registerComponent('cameraTest', () => Application);
 
@@ -35,15 +32,17 @@ const App = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const Stack = createStackNavigator();
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <TakePhoto 
-          style={{
-            flex : 1,
-          }}/>
-    </SafeAreaView>
+    // <SafeAreaView style={backgroundStyle}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Camera">
+          <Stack.Screen name="TakePhoto" component={TakePhoto} />
+          <Stack.Screen name="Main" component={Main} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    // </SafeAreaView>
   );
 };
 
