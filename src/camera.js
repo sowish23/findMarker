@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { RNCamera } from 'react-native-camera';
 import CameraRoll from "@react-native-community/cameraroll";
+import axios from 'axios';
 
 const View = styled.View`
   flex: 1;
@@ -31,11 +32,15 @@ const TakePhoto = () => {
 				exif: true,
 			});
 			console.log('😻 data', data);
-
-			if (data) {
-				const result = await CameraRoll.save(data.uri);
-				console.log('🐤result', result);
-			}
+			axios.post('https://soso2266.pythonanywhere.com/post', {
+				document: data.uri,
+			})
+			.then(function (response) {
+				console.log(response);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 		}
 	};
 
