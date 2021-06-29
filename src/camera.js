@@ -1,75 +1,60 @@
-'use strict';
-import React, { PureComponent } from 'react';
-import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import styled from 'styled-components';
 import { RNCamera } from 'react-native-camera';
+import CameraRoll from "@react-native-community/cameraroll";
 
-class Camera extends PureComponent {
-  render() {
-    return (
-      <View style={styles.container}>
-        <RNCamera
-          ref={ref => {
-            this.camera = ref;
-          }}
-          style={styles.preview}
-          type={RNCamera.Constants.Type.back}
-          flashMode={RNCamera.Constants.FlashMode.on}
-          androidCameraPermissionOptions={{
-            title: 'Permission to use camera',
-            message: 'We need your permission to use your camera',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-          androidRecordAudioPermissionOptions={{
-            title: 'Permission to use audio recording',
-            message: 'We need your permission to use your audio',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-          onGoogleVisionBarcodesDetected={({ barcodes }) => {
-            console.log(barcodes);
-          }}
-        />
-        <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-          <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
-            <Text style={{ fontSize: 14 }}> SNAP </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
+const View = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
 
-  takePicture = async () => {
-    if (this.camera) {
-      const options = { quality: 0.5, base64: true };
-      const data = await this.camera.takePictureAsync(options);
-      console.log(data.uri);
-    }
-  };
+const Button = styled.View`
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  border: 10px solid lightgrey
+  background-color: pink;
+  margin: 30px;
+`;
+
+const Touchable = styled.TouchableOpacity``;
+
+const TakePhoto = () => {
+	const cameraRef = React.useRef(null);
+
+	const takePhoto = async () => {
+		console.log('cameraRef', cameraRef);
+		if (cameraRef) {
+			const data = await cameraRef.current.takePictureAsync({
+				quality: 1,
+				exif: true,
+			});
+			console.log('😻 data', data);
+
+			if (data) {
+				const result = await CameraRoll.save(data.uri);
+				console.log('🐤result', result);
+			}
+		}
+	};
+
+	return (
+		<>
+			<RNCamera
+				ref={cameraRef}
+				style={{
+					width: '100%',
+					height: '80%',
+				}}
+				captureAudio={false} />
+			<View>
+				<Touchable onPress={takePhoto}>
+					<Button />
+				</Touchable>
+			</View>
+		</>
+	)
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: 'black',
-  },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20,
-  },
-});
-
-AppRegistry.registerComponent('App', () => Camera);
-
-export default Camera;
+export default TakePhoto
