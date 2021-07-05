@@ -24,6 +24,7 @@ const TakePhoto = ({navigation}) => {
 	const cameraRef = React.useRef(null);
 
 	const takePhoto = async () => {
+		dataC = ''
 		console.log('cameraRef', cameraRef);
 		if (cameraRef) {
 			const data = await cameraRef.current.takePictureAsync({
@@ -31,9 +32,25 @@ const TakePhoto = ({navigation}) => {
 				exif: true,
 			});
 			console.log('😻 data', data);
-			axios.post('https://soso2266.pythonanywhere.com/post', {
-				document: data.uri,
-			})
+			if (data) {
+				const result = await CameraRoll.saveToCameraRoll(data.uri);
+				dataC = result
+				console.log('🐤result', result);
+			}
+			let formData = new FormData();
+      		// formData.append('document', data);
+			formData.append('image', {
+				uri: data.uri,
+				type: 'image/jpg',
+				name: 'image.jpg',
+			  });
+			// console.log('erwerw', data.)
+			axios.post('https://soso2266.pythonanywhere.com/post', formData
+			// , {
+			// 	headers : {
+			// 		'Content-Type' :'media-type'
+			// 	}}
+				)
 			.then(function (response) {
 				console.log(response);
 				navigation.navigate('Main');
@@ -41,6 +58,7 @@ const TakePhoto = ({navigation}) => {
 			.catch(function (error) {
 				console.log(error);
 			});
+
 		}
 	};
 
