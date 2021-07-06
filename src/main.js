@@ -4,23 +4,47 @@ import { Text, View, Image} from 'react-native';
 import axios from 'axios';
 
 const Main = () => {
-    const [data, setData] = useState();
+    const [image, setImage] = useState();
     const [address, setAddress] = useState();
 
     useEffect(() => {
-        getList();
+        getImage();
     }, []);
 
     useEffect(() => {
-        console.log(data)
-    }, [address]);
+        console.log(image)
+        console.log(address)
+    }, [image, address]);
 
     // 'https://soso2266.pythonanywhere.com/post'
-	const getList = async () => {
-		axios.get('https://soso2266.pythonanywhere.com/post')
+
+    const findmk = async (path) => {
+        axios.post('https://soso2266.pythonanywhere.com/api/address/', {'path' : 'https://soso2266.pythonanywhere.com/media/'+path})
+        .then(function (response) {
+            console.log(response);
+            getAddress();
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+	};
+
+	const getImage = async () => {
+		axios.get('https://soso2266.pythonanywhere.com/api/image/')
 		.then(function (response) {
-			setData(response.data.images);
-			setAddress(response.data.addresses);
+			setImage(response.data.images.document);
+            findmk(response.data.images.document)
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+	};
+
+	const getAddress = async () => {
+		axios.get('https://soso2266.pythonanywhere.com/api/address/')
+		.then(function (response) {
+            console.log(response.data.address)
+			setAddress(response.data.address);
 		})
 		.catch(function (error) {
 			console.log(error);
@@ -30,12 +54,12 @@ const Main = () => {
 	return (
         <View>
             {
-                data ? address ?
+                image ? address ?
                 <>
-                    <Text>{address[address.length - 1].address ? address[address.length - 1].address  : '인식실패'}</Text>
+                    <Text>{address.address ? address.address : '인식실패'}</Text>
                     <Image
                         style={{height: 200, width: 200}}
-                        source={{uri:'https://soso2266.pythonanywhere.com/media/'+data[data.length - 1].document}}/>
+                        source={{uri:address.document}}/>
                 </>
                 : null : null
 

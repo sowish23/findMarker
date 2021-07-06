@@ -38,21 +38,14 @@ const TakePhoto = ({navigation}) => {
 				console.log('🐤result', result);
 			}
 			let formData = new FormData();
-      		// formData.append('document', data);
 			formData.append('image', {
 				uri: data.uri,
 				type: 'image/jpg',
 				name: 'image.jpg',
 			  });
-			// console.log('erwerw', data.)
-			axios.post('https://soso2266.pythonanywhere.com/post', formData
-			// , {
-			// 	headers : {
-			// 		'Content-Type' :'media-type'
-			// 	}}
-				)
+			axios.post('https://soso2266.pythonanywhere.com/api/image/', formData)
 			.then(function (response) {
-				console.log(response);
+				console.log('resss', response);
 				navigation.navigate('Main');
 			})
 			.catch(function (error) {
