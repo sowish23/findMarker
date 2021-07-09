@@ -52,14 +52,17 @@ const Main = () => {
 	};
 
 	return (
-        <View>
+        <View style={{margin: 0}}>
             {
                 image ? address ?
                 <>
-                    <Text>{address.address ? address.address : '인식실패'}</Text>
                     <Image
-                        style={{height: 200, width: 200}}
+                        style={{width:400, height:400}}
                         source={{uri:'https://soso2266.pythonanywhere.com/media/'+image}}/>
+                    <Text 
+                        style={{textAlign: 'center', margin: 12, fontSize: 20}}>
+                        {address.address ? address.address : '인식실패'}
+                    </Text>
                 </>
                 : null : null
 
