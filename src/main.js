@@ -19,7 +19,7 @@ const Main = () => {
     // 'https://soso2266.pythonanywhere.com/post'
 
     const findmk = async (path) => {
-        axios.post('https://soso2266.pythonanywhere.com/api/address/', {'path' : 'https://soso2266.pythonanywhere.com/media/'+path})
+        axios.post('https://soso2266.pythonanywhere.com/api/address/', {'path' : './findMarkerAPI/media/'+path})
         .then(function (response) {
             console.log(response);
             getAddress();
