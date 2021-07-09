@@ -59,7 +59,7 @@ const Main = () => {
                     <Text>{address.address ? address.address : '인식실패'}</Text>
                     <Image
                         style={{height: 200, width: 200}}
-                        source={{uri:address.document}}/>
+                        source={{uri:'https://soso2266.pythonanywhere.com/media/'+image}}/>
                 </>
                 : null : null
 
