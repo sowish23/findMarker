@@ -20,7 +20,7 @@ const Button = styled.View`
 `;
 
 const Touchable = styled.TouchableOpacity``;
-const TakePhoto = ({navigation}) => {
+const TakePhoto = ({navigation, route}) => {
 	const cameraRef = React.useRef(null);
 
 	const takePhoto = async () => {
@@ -46,7 +46,7 @@ const TakePhoto = ({navigation}) => {
 			axios.post('https://soso2266.pythonanywhere.com/api/image/', formData)
 			.then(function (response) {
 				console.log('resss', response);
-				navigation.navigate('Main');
+				navigation.navigate('Main', {'url': data.uri});
 			})
 			.catch(function (error) {
 				console.log(error);

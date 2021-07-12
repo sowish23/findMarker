@@ -145,7 +145,6 @@
 				5B03F3D39F2B031968C11EC1 /* Pods-findMarker-findMarkerTests.debug.xcconfig */,
 				618F39A2A65FBE5C4241D37E /* Pods-findMarker-findMarkerTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -485,6 +484,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CL5866DXS9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = findMarker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -511,6 +511,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CL5866DXS9;
 				INFOPLIST_FILE = findMarker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Text, View, Image} from 'react-native';
 import axios from 'axios';
 
-const Main = () => {
+const Main = ({navigation, route}) => {
     const [image, setImage] = useState();
     const [address, setAddress] = useState();
 
@@ -58,7 +58,7 @@ const Main = () => {
                 <>
                     <Image
                         style={{width:400, height:400}}
-                        source={{uri:'https://soso2266.pythonanywhere.com/media/'+image}}/>
+                        source={{uri:route.params.url}}/>
                     <Text 
                         style={{textAlign: 'center', margin: 12, fontSize: 20}}>
                         {address.address ? address.address : '인식실패'}
